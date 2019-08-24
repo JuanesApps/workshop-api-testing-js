@@ -6,8 +6,6 @@ const expect = chai.expect;
 
 describe('First Api Tests', () => {
 
-    // GET: El método GET  solicita una representación de un recurso específico. Las peticiones que usan el método GET sólo deben recuperar datos.
-
     it('Consume GET Service', async () => {
         const response = await agent.get('https://httpbin.org/ip');
       
@@ -16,29 +14,25 @@ describe('First Api Tests', () => {
     });
     
     it('Consume GET Service with query parameters', async () => {
-        const query = {
+        const requestBody = {
           name: 'John',
           age: '31',
           city: 'New York'
         };
       
-        const response = await agent.get('https://httpbin.org/get').query(query);
+        const response = await agent.get('https://httpbin.org/get').query(requestBody);
       
         expect(response.status).to.equal(statusCode.OK);
-        expect(response.body.args).to.eql(query);
+        expect(response.body.args).to.eql(requestBody);
     });
-
-      // HEAD: El método HEAD pide una respuesta idéntica a la de una petición GET, pero sin el cuerpo de la respuesta.
 
     it('HEAD', async () => {
         
-        const response = await agent.get('https://httpbin.org/headers');
+        const response = await agent.head('https://httpbin.org/headers');
       
         expect(response.status).to.equal(statusCode.OK);
         
     });
-
-      // PATCH: El método PATCH  es utilizado para aplicar modificaciones parciales a un recurso.
 
     it('PATCH', async () => {
         const query = {
@@ -52,8 +46,6 @@ describe('First Api Tests', () => {
         expect(response.status).to.equal(statusCode.OK);
         expect(response.body.args).to.eql(query);
     });
-
-      // PUT: El modo PUT reemplaza todas las representaciones actuales del recurso de destino con la carga útil de la petición.
 
     it('PUT', async () => {
         const query = {
